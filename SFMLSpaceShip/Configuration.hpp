@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "ResourceManager.hpp"
 #include "ActionMap.hpp"
@@ -10,6 +11,26 @@ class Configuration {
 		Configuration() = delete;
 		Configuration(const Configuration&) = delete;
 		Configuration& operator=(const Configuration&) = delete;
+
+		enum Fonts : int { Gui };
+		static ResourceManager<sf::Font, int> fonts;
+
+		enum GuiInputs : int {
+			Escape,
+		};
+		static ActionMap<int> guiInputs;
+
+		enum Sounds : int {
+			Spawn,
+			Explosion,
+			LevelUp,
+		};
+		static ResourceManager<sf::SoundBuffer, int> sounds;
+
+		enum Musics : int {
+			Theme
+		};
+		static ResourceManager<sf::Music, int> musics;
 
 		enum Textures : int { Player };
 		static ResourceManager<sf::Texture, int> textures;
@@ -21,6 +42,11 @@ class Configuration {
 
 	private:
 		static void InitTextures();
+		static void InitFonts();
+		static void InitSounds();
+		static void InitMusics();
+
 		static void InitPlayerInputs();
+		static void InitGuiInputs();
 };
 
