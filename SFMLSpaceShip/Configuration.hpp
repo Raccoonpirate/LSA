@@ -6,14 +6,20 @@
 #include "ResourceManager.hpp"
 #include "ActionMap.hpp"
 
+enum class Fonts : int { Gui };
+
+enum class Textures : int { Player, Eagle, Raptor, Desert };
+
 class Configuration {
 	public:
 		Configuration() = delete;
 		Configuration(const Configuration&) = delete;
 		Configuration& operator=(const Configuration&) = delete;
 
-		enum Fonts : int { Gui };
-		static ResourceManager<sf::Font, int> fonts;
+		//enum Fonts : int { Gui };
+		//static ResourceManager<sf::Font, int> fonts;
+
+		static ResourceManager<sf::Font, Fonts> fonts;
 
 		enum GuiInputs : int {
 			Escape,
@@ -32,8 +38,10 @@ class Configuration {
 		};
 		static ResourceManager<sf::Music, int> musics;
 
-		enum Textures : int { Player };
-		static ResourceManager<sf::Texture, int> textures;
+		//enum Textures : int { Player };
+		//static ResourceManager<sf::Texture, int> textures;
+		
+		static ResourceManager<sf::Texture, Textures> textures;
 
 		enum PlayerInputs : int { Up, Left, Right };
 		static ActionMap<int> playerInputs;

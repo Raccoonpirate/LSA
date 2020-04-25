@@ -2,7 +2,8 @@
 #include "Player.hpp"
 
 Player::Player() : ActionTarget(Configuration::playerInputs) {
-	_ship.setTexture(Configuration::textures.Get(Configuration::Textures::Player));
+	//_ship.setTexture(Configuration::textures.Get(Configuration::Textures::Player));
+	_ship.setTexture(Configuration::textures.Get(Textures::Player));
 	_ship.setOrigin(32.f, 32.f);
 
 	bind(Configuration::PlayerInputs::Up, [this] (const sf::Event&) {

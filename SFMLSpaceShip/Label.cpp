@@ -1,7 +1,8 @@
 #include "Label.hpp"
 
 Label::Label(const std::string& text, Widget* parent) : Widget(parent) {
-	_text.setFont(Configuration::fonts.Get(Configuration::Fonts::Gui));
+	//_text.setFont(Configuration::fonts.Get(Configuration::Fonts::Gui));
+	_text.setFont(Configuration::fonts.Get(Fonts::Gui));
 
 	SetText(text);
 	SetTextColor(sf::Color(180, 93, 23));

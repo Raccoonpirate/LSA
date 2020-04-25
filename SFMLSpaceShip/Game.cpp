@@ -1,8 +1,11 @@
 #include "Game.hpp"
 
-Game::Game() : _window(sf::VideoMode(800, 600), "Spaceship not adventures"), _player(),
-_mainMenu(_window), _configurationMenu(_window), _pauseMenu(_window), _state(State::StateMainMenu) {
-	_player.SetPosition(100.f, 100.f);
+Game::Game() : _window(sf::VideoMode(800, 600), "Spaceship not adventures"),
+_world {_window},
+_mainMenu {_window},
+_configurationMenu {_window},
+_pauseMenu{_window}, 
+_state {State::StateMainMenu} {
 	InitGui();
 }
 
@@ -38,7 +41,6 @@ void Game::ProcessEvents() {
 					break;
 				}
 				case StateGame: {
-					_player.ProcessEvents();
 					break;
 				}
 				case StateConfiguration: {
@@ -60,7 +62,6 @@ void Game::ProcessEvents() {
 			break;
 		}
 		case StateGame: {
-			_player.ProcessEvents();
 			break;
 		}
 		case StateConfiguration: {
@@ -76,7 +77,7 @@ void Game::ProcessEvents() {
 }
 
 void Game::Update(const sf::Time& dt) {
-	_player.Update(dt);
+	_world.Update(dt);
 }
 
 void Game::Render() {
@@ -88,7 +89,7 @@ void Game::Render() {
 			break;
 		}
 		case StateGame: {
-			_window.draw(_player);
+			_world.Draw();
 			break;
 		}
 		case StateConfiguration: {

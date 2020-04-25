@@ -1,8 +1,10 @@
 #include "Configuration.hpp"
 
-ResourceManager<sf::Font, int> Configuration::fonts;
+//ResourceManager<sf::Font, int> Configuration::fonts;
+//ResourceManager<sf::Texture, int> Configuration::textures;
+ResourceManager<sf::Font, Fonts> Configuration::fonts;
 ResourceManager<sf::Music, int> Configuration::musics;
-ResourceManager<sf::Texture, int> Configuration::textures;
+ResourceManager<sf::Texture, Textures> Configuration::textures;
 ResourceManager<sf::SoundBuffer, int> Configuration::sounds;
 
 ActionMap<int> Configuration::guiInputs;
@@ -19,7 +21,8 @@ void Configuration::Initialize() {
 }
 
 void Configuration::InitTextures() {
-	textures.Load(Textures::Player, "assets/player/ShipSprite.png");
+	textures.Load(Textures::Eagle,  "assets/textures/spaceships/1.png");
+	textures.Load(Textures::Raptor, "assets/textures/spaceships/2.png");
 }
 
 void Configuration::InitFonts() {

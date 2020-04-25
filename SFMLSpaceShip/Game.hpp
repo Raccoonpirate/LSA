@@ -3,6 +3,7 @@
 
 #include "GUI.hpp"
 #include "Player.hpp"
+#include "World.hpp"
 
 class Game {
 	public:
@@ -29,7 +30,8 @@ class Game {
 		} _state;
 
 		sf::RenderWindow _window;
-		Player _player;
+
+		World _world;
 
 		Frame _mainMenu;
 		Frame _configurationMenu;
