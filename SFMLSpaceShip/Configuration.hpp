@@ -8,16 +8,16 @@
 
 enum class Fonts : int { Gui };
 
-enum class Textures : int { Player, Eagle, Raptor, Desert };
+enum class Textures : int {
+	Eagle, Raptor, Avenger, UFO,
+	MenuBackground, MenuPlanet,
+	PlayerBullet, UfoBolt, Missile };
 
 class Configuration {
 	public:
 		Configuration() = delete;
 		Configuration(const Configuration&) = delete;
 		Configuration& operator=(const Configuration&) = delete;
-
-		//enum Fonts : int { Gui };
-		//static ResourceManager<sf::Font, int> fonts;
 
 		static ResourceManager<sf::Font, Fonts> fonts;
 
@@ -38,12 +38,9 @@ class Configuration {
 		};
 		static ResourceManager<sf::Music, int> musics;
 
-		//enum Textures : int { Player };
-		//static ResourceManager<sf::Texture, int> textures;
-		
 		static ResourceManager<sf::Texture, Textures> textures;
 
-		enum PlayerInputs : int { Up, Left, Right };
+		enum PlayerInputs : int { Up, Left, Right, Down, Shoot, Missile };
 		static ActionMap<int> playerInputs;
 
 		static void Initialize();

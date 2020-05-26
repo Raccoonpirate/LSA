@@ -2,10 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Configuration.hpp"
 #include "ActionTarget.hpp"
+#include "Spacecraft.hpp"
 
-class Player : public sf::Drawable, public ActionTarget<int> {
+class Player : public ActionTarget<int> {
 	public:
 		Player(const Player&) = delete;
 		Player& operator=(const Player&) = delete;
@@ -15,22 +15,17 @@ class Player : public sf::Drawable, public ActionTarget<int> {
 		template<typename ... Args>
 		void SetPosition(Args&& ... args);
 
-		void ProcessEvents();
+		void PollEvents(const sf::Event& event);
+		void RealTimeEvents();
 
-		void Update(sf::Time dt);
+		void SetSpaceship(Spacecraft* spaceship);
 
 	private:
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-		bool _isMoving {false};
-		int _rotation {0};
-		
-		sf::Vector2f _velocity;
-		sf::Sprite _ship;
+		Spacecraft* _spaceship;
 };
 
 template<typename ...Args>
 void Player::SetPosition(Args && ...args) {
 	// Now we can use both setPosition method from sf::Transformable
-	_ship.setPosition(std::forward<Args>(args)...);
+	//_ship.setPosition(std::forward<Args>(args)...);
 }

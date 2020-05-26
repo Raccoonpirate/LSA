@@ -29,7 +29,7 @@ class TextButton : public Button {
 		virtual void onMouseEntered()override;
 		virtual void onMouseLeft()override;
 
-		const float _highLightAmount = 1.4;
+		const float _highLightAmount = 1.4f;
 		sf::RectangleShape _shape;
 		Label _label;
 

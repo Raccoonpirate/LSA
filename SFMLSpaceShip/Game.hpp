@@ -32,8 +32,9 @@ class Game {
 		sf::RenderWindow _window;
 
 		World _world;
+		Player _player;
 
-		Frame _mainMenu;
+		//Frame _mainMenu;
 		Frame _configurationMenu;
 		Frame _pauseMenu;
 };

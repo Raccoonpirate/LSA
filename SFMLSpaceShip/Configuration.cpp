@@ -23,10 +23,18 @@ void Configuration::Initialize() {
 void Configuration::InitTextures() {
 	textures.Load(Textures::Eagle,  "assets/textures/spaceships/1.png");
 	textures.Load(Textures::Raptor, "assets/textures/spaceships/2.png");
+	textures.Load(Textures::UFO,    "assets/textures/spaceships/UFO.png");
+
+	textures.Load(Textures::UfoBolt,	  "assets/textures/projectiles/ufoBolt.png");
+	textures.Load(Textures::PlayerBullet, "assets/textures/projectiles/bolt.png");
+	textures.Load(Textures::Missile,	  "assets/textures/projectiles/missile.png");
+
+	textures.Load(Textures::MenuBackground, "assets/textures/MenuBackground.png");
+	textures.Load(Textures::MenuPlanet,     "assets/textures/MenuPlanet.png");
 }
 
 void Configuration::InitFonts() {
-	fonts.Load(Fonts::Gui, "assets/fonts/trs-million.ttf");
+	fonts.Load(Fonts::Gui, "assets/fonts/ERASBD.TTF");
 }
 
 void Configuration::InitSounds() {
@@ -36,9 +44,12 @@ void Configuration::InitMusics() {
 }
 
 void Configuration::InitPlayerInputs() {
-	playerInputs.map(PlayerInputs::Up,	  Action(sf::Keyboard::Up));
-	playerInputs.map(PlayerInputs::Right, Action(sf::Keyboard::Right));
-	playerInputs.map(PlayerInputs::Left,  Action(sf::Keyboard::Left));
+	playerInputs.map(PlayerInputs::Up,		Action(sf::Keyboard::Up));
+	playerInputs.map(PlayerInputs::Right,	Action(sf::Keyboard::Right));
+	playerInputs.map(PlayerInputs::Left,	Action(sf::Keyboard::Left));
+	playerInputs.map(PlayerInputs::Down,	Action(sf::Keyboard::Down));
+	playerInputs.map(PlayerInputs::Shoot,   Action(sf::Keyboard::Space));
+	playerInputs.map(PlayerInputs::Missile, Action(sf::Keyboard::M));
 }
 
 void Configuration::InitGuiInputs() {

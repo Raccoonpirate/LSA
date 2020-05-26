@@ -1,11 +1,11 @@
 #include "Game.hpp"
 
-Game::Game() : _window(sf::VideoMode(800, 600), "Spaceship not adventures"),
+Game::Game() : _window(sf::VideoMode(800, 600), "Spaceship not adventures", sf::Style::Close | sf::Style::Titlebar),
 _world {_window},
-_mainMenu {_window},
 _configurationMenu {_window},
-_pauseMenu{_window}, 
-_state {State::StateMainMenu} {
+_pauseMenu {_window},
+_state {State::StateMainMenu},
+_player {} {
 	InitGui();
 }
 
@@ -37,10 +37,10 @@ void Game::ProcessEvents() {
 		} else {
 			switch (_state) {
 				case StateMainMenu: {
-					_mainMenu.ProcessEvent(input);
 					break;
 				}
 				case StateGame: {
+					_player.PollEvents(input);
 					break;
 				}
 				case StateConfiguration: {
@@ -58,10 +58,10 @@ void Game::ProcessEvents() {
 
 	switch (_state) {
 		case StateMainMenu: {
-			_mainMenu.ProcessEvents();
 			break;
 		}
 		case StateGame: {
+			_player.RealTimeEvents();
 			break;
 		}
 		case StateConfiguration: {
@@ -85,7 +85,6 @@ void Game::Render() {
 
 	switch (_state) {
 		case StateMainMenu: {
-			_window.draw(_mainMenu);
 			break;
 		}
 		case StateGame: {
@@ -110,36 +109,6 @@ void Game::InitGame() {
 }
 
 void Game::InitGui() {
-	//_mainMenu
-	{
-		VLayout* layout = new VLayout;
-		layout->SetSpace(25);
-
-		TextButton* newGame = new TextButton("New Game");
-		newGame->onClick = [this] (const sf::Event&, Button& button) {
-			InitGame();
-			_state = StateGame;
-		};
-		layout->add(newGame);
-
-		TextButton* configuration = new TextButton("Configuration");
-		configuration->onClick = [this] (const sf::Event&, Button& button) {
-			_state = StateConfiguration;
-		};
-		layout->add(configuration);
-
-		TextButton* exit = new TextButton("Exit");
-		exit->onClick = [this] (const sf::Event&, Button& button) {
-			_window.close();
-		};
-		layout->add(exit);
-
-		_mainMenu.SetLayout(layout);
-
-		_mainMenu.bind(Configuration::GuiInputs::Escape, [this] (const sf::Event& event) {
-			this->_window.close();
-		});
-	}
 	//_pauseMenu
 	{
 		VLayout* layout = new VLayout;

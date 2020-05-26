@@ -1,45 +1,46 @@
 #include <utility>
+#include <iostream>
+
 #include "Player.hpp"
 
-Player::Player() : ActionTarget(Configuration::playerInputs) {
-	//_ship.setTexture(Configuration::textures.Get(Configuration::Textures::Player));
-	_ship.setTexture(Configuration::textures.Get(Textures::Player));
-	_ship.setOrigin(32.f, 32.f);
-
+Player::Player() 
+	: ActionTarget {Configuration::playerInputs} {
+	
 	bind(Configuration::PlayerInputs::Up, [this] (const sf::Event&) {
-		_isMoving = true;
+		_spaceship->Accelerate(sf::Vector2f(0.f, -200.f));
 	});
 
 	bind(Configuration::PlayerInputs::Left, [this] (const sf::Event&) {
-		_rotation -= 1;
+		_spaceship->Accelerate(sf::Vector2f(-200.f, 0.f));
 	});
 
 	bind(Configuration::PlayerInputs::Right, [this] (const sf::Event&) {
-		_rotation += 1;
+		_spaceship->Accelerate(sf::Vector2f(200.f, 0.f));
+	});
+
+	bind(Configuration::PlayerInputs::Down, [this] (const sf::Event&) {
+		_spaceship->Accelerate(sf::Vector2f(0.f, 200.f));
+	});
+	
+	bind(Configuration::PlayerInputs::Shoot, [this] (const sf::Event&) {
+		//_spaceship->Accelerate(sf::Vector2f(0.f, 200.f));
+		_spaceship->Fire();
+	});
+	
+	bind(Configuration::PlayerInputs::Missile, [this] (const sf::Event&) {
+		//_spaceship->Accelerate(sf::Vector2f(0.f, 200.f));
+		_spaceship->LaunchMissile();
 	});
 }
 
-void Player::ProcessEvents() {
-	_rotation = 0;
-	_isMoving = false;
+void Player::RealTimeEvents() {
 	ActionTarget::RealTimeEvents();
 }
 
-void Player::Update(sf::Time dt) {
-	float seconds = dt.asSeconds();
-
-	if (_rotation) {
-		float angle = _rotation * 180 * seconds;
-		_ship.rotate(angle);
-	}
-	if (_isMoving) {
-		float angle = _ship.getRotation() / 180.f * M_PI - M_PI / 2.f;
-		_velocity += sf::Vector2f(cos(angle), sin(angle)) * 60.f * seconds;
-	}
-
-	_ship.move(seconds * _velocity);
+void Player::PollEvents(const sf::Event& event) {
+	ActionTarget::PollEvents(event);
 }
 
-void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const {
-	target.draw(_ship, states);
+void Player::SetSpaceship(Spacecraft* spaceship) {
+	_spaceship = spaceship;
 }

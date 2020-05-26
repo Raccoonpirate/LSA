@@ -3,9 +3,12 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include <vector>
 #include <memory>
+
+#include "SceneNodeTypes.hpp"
 
 class SceneNode : public sf::Transformable, public sf::Drawable {
 	public:
@@ -20,6 +23,8 @@ class SceneNode : public sf::Transformable, public sf::Drawable {
 		Ptr	DetachChild(const SceneNode& node);
 
 		void Update(sf::Time dt);
+		void PollEventsChildren(const sf::Event& event);
+		void RealTimeEventsChildren();
 
 		sf::Vector2f GetWorldPosition() const;
 		sf::Transform GetWorldTransform() const;
@@ -29,8 +34,8 @@ class SceneNode : public sf::Transformable, public sf::Drawable {
 		void UpdateChildren(sf::Time dt);
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-		virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-		void drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void DrawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+		void DrawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
 	
 		std::vector<Ptr> _children;
 		SceneNode* _parent;

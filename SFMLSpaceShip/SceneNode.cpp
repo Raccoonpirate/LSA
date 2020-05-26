@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <cassert>
 
-//#include <Book/Foreach.hpp>
 #include "SceneNode.hpp"
 
 SceneNode::SceneNode()
@@ -43,20 +42,26 @@ void SceneNode::UpdateChildren(sf::Time dt) {
 	}
 }
 
+void SceneNode::PollEventsChildren(const sf::Event & event) {
+}
+
+void SceneNode::RealTimeEventsChildren() {
+}
+
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	// Apply transform of current node
 	states.transform *= getTransform();
 
 	// Draw node and children with changed transform
-	drawCurrent(target, states);
-	drawChildren(target, states);
+	DrawCurrent(target, states);
+	DrawChildren(target, states);
 }
 
-void SceneNode::drawCurrent(sf::RenderTarget&, sf::RenderStates) const {
+void SceneNode::DrawCurrent(sf::RenderTarget&, sf::RenderStates) const {
 	// Do nothing by default
 }
 
-void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates states) const {
+void SceneNode::DrawChildren(sf::RenderTarget& target, sf::RenderStates states) const {
 	for (const auto& child : _children) {
 		child->draw(target, states);
 	}
